@@ -1,0 +1,184 @@
+def letter_a(size: int, word_list: list):
+    """
+    Generate and append the pattern for the letter 'A' to the word_list.
+
+    Parameters:
+    - size (int): The size of the letter.
+    - word_list (list): The list to which the letter will be appended.
+    """
+    print_a = [[" " for row in range(size)] for column in range(size)] # Generate an empty list of size x size
+    for row in range(size):
+        for column in range(size):
+            if (column==0 or column==size-1) and row>=size//2 or row==size//2 or row==column-size//2 or row==size//2-column:
+                print_a[row][column]="*" # Print '*' in required rows and columns to spell letter
+    word_list.append(print_a)
+
+def letter_b(size: int, word_list: list):
+    """
+    Generate and append the pattern for the letter 'B' to the word_list.
+
+    Parameters:
+    - size (int): The size of the letter.
+    - word_list (list): The list to which the letter will be appended.
+    """
+    print_b = [[" " for row in range(size)] for column in range(size)] # Generate an empty list of size x size
+    for row in range(size):
+        for column in range(size):
+            if (row==0 or row==size-1 or row==size//2) and column!=size-1 or column==0 or column==size-1 and (row!=0 and row!=size-1 and row!=size//2 ):
+                print_b[row][column]="*" # Print '*' in required rows and columns to spell letter
+    word_list.append(print_b)
+    
+def letter_n(size: int, word_list: list):
+    """
+    Generate and append the pattern for the letter 'N' to the word_list.
+
+    Parameters:
+    - size (int): The size of the letter.
+    - word_list (list): The list to which the letter will be appended.
+    """
+    print_n = [[" " for i in range(size)] for j in range(size)] # Generate an empty list of size x size
+    for row in range(size):
+        for column in range(size):
+            if column==0 or column==size-1 or row==column:
+                print_n[row][column]="*" # Print '*' in required rows and columns to spell letter
+    word_list.append(print_n)
+    
+def letter_o(size: int, word_list: list):
+    """
+    Generate and append the pattern for the letter 'O' to the word_list.
+
+    Parameters:
+    - size (int): The size of the letter.
+    - word_list (list): The list to which the letter will be appended.
+    """
+    print_o = [[" " for row in range(size)] for column in range(size)] # Generate an empty list of size x size
+    for row in range(size):
+        for column in range(size):
+            if (row>1 and row<size-2) and (column==0 or column==size-1) or (row==0 or row==size-1) and (column>1 and column<size-2) or (row==1 or row==size-2) and (column==1 or column==size-2): 
+                print_o[row][column] = "*" # Print '*' in required rows and columns to spell letter
+    word_list.append(print_o)
+
+def letter_t(size: int, word_list: list):
+    """
+    Generate and append the pattern for the letter 'T' to the word_list.
+
+    Parameters:
+    - size (int): The size of the letter.
+    - word_list (list): The list to which the letter will be appended.
+    """
+    print_t = [[" " for row in range(size)] for column in range(size)] # Generate an empty list of size x size
+    for row in range(size):
+        for column in range(size):
+            if row==0 or column==round(size//2):
+                print_t[row][column] ="*" # Print '*' in required rows and columns to spell letter
+    word_list.append(print_t)
+
+def letter_y(size: int, word_list: list):
+    """
+    Generate and append the pattern for the letter 'Y' to the word_list.
+
+    Parameters:
+    - size (int): The size of the letter.
+    - word_list (list): The list to which the letter will be appended.
+    """
+    print_y = [[" " for i in range(size)] for j in range(size)] # Generate an empty list of size x size
+    for row in range(size):
+        for column in range(size):
+            if row<=size//2 and row==column or (column==size//2 and row>size//2) or (row<size//2 and column==(size-1-row)):
+                print_y[row][column]="*" # Print '*' in required rows and columns to spell letter
+    word_list.append(print_y)
+     
+def print_word(word: str, size: int, word_list: list)-> list:
+    """
+    Identifies characters in user word, generates and stores the printed letters for the input word to word_list.
+
+    Parameters:
+    - word (str): The input word to spell.
+    - size (int): The size of each letter.
+    - word_list (list): The list to store the letter patterns.
+    Returns:
+    - word_list (list): The word_list with all the letters appended.
+    """
+    for char in range(len(word)): 
+        if word[char].upper() == "A":
+            letter_a(size, word_list)
+        elif word[char].upper() == "B":
+            letter_b(size, word_list)
+        elif word[char].upper() == "N":
+            letter_n(size, word_list)    
+        elif word[char].upper() == "O":          
+            letter_o(size, word_list)             
+        elif word[char].upper() == "T":
+            letter_t(size, word_list)
+        elif word[char].upper() == "Y":
+            letter_y(size, word_list)        
+    return word_list
+
+def main():
+    """
+    Generate and display patterns for words and letters using '*'.
+
+    This function lets users input a word containing the characters 'A', 'B', 'N, 'O', 'T', and 'Y'.
+    Decorative patterns corresponding to each character are displayed using '*'. Users can continue or exit.
+
+    Usage:
+    - Enter a word (case-insensitive) using only the allowed characters ('A', 'B', 'N', 'O', 'T', 'Y').
+    - Displayed patterns are of a predefined size denoted by 'size' variable.
+    - Type 'END' (case-insensitive) at any time to exit.
+    - User will be prompted to spell another word or exit program.
+    """
+    
+    allowed_chars = [
+        "A", "B", "N", "O", "T", "Y"] # Define allowed characters
+    size = 25                          # Size of letters
+    word_list = []                    # Create empty list to store user word
+    invalid_word = True               # Flag to indiciate if valid word has been entered yet
+    
+    while invalid_word:
+        try:           
+            word = input("What word would you like to spell?")  # Ask user for input word to spell                 
+            user_input = [char.upper() for char in word]        # Convert input characters into upper case
+            
+            # Check if user has entered valid word or if user wants to end
+            if word.upper() == "END":
+                print("See you later!")
+                return
+            elif len(word)<1:
+                raise ValueError             
+            for i in range(len(word)):     
+                if user_input[i] not in allowed_chars:
+                    raise ValueError
+                    
+            # Word is valid, continue function         
+            invalid_word = False                                
+            
+            # Call functions to print the final output
+            final_output = print_word(word, size, word_list)
+            for row in range(size):
+                for index in range(len(final_output)):
+                    for column in range(size):
+                        print(final_output[index][row][column],end="") 
+                    print(end=" ")
+                print() 
+                
+        # If user has entered invalid word then prompt again
+        except ValueError:
+            print("Please enter a word with the letters A, B, N, O, T, Y.")
+    
+    # Ask user if they want to spell another word
+    if not invalid_word:
+        answer = True 
+        while answer: # Waits for valid user answer
+            ask = input("Do you want to spell another word? Y/N") 
+            if ask.upper() == "N" or ask.upper()=="END":
+                answer = False
+                print("See you next time!") # Exit program           
+                return
+            elif ask.upper() == "Y":
+                main() # Call main function again to get new user input
+                return
+            else:
+                print("Invalid selection. Choose Y or N")
+
+if __name__ == "__main__":                
+    main()
